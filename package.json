@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:php-code-actions.helloWorld"
+        "onCommand:php-code-actions.helloWorld",
+        "onCommand:php-code-actions.addConstructor"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -18,6 +19,10 @@
 			{
 				"command": "php-code-actions.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "php-code-actions.addConstructor",
+				"title": "Add Constructor"
 			}
 		]
 	},
