@@ -22,11 +22,11 @@ class Example
 suite('Get Line For Constructor tests', () => {
 
     test('constructor line should be after last property', () => {
-        vscode.workspace.openTextDocument({
+        return vscode.workspace.openTextDocument({
             content: example
         }).then(document => {
             const position: vscode.Position = getLineForConstructor(document);
-            assert.strictEqual(position.line, 13);
+            assert.strictEqual(position.line, 15);
             assert.strictEqual(position.character, 0);
         });
     });

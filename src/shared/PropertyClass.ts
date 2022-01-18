@@ -8,8 +8,19 @@ enum PropertyVisibility {
 }
 
 enum PropertyType {
-    mixed = 'mixed'
+    mixed = 'mixed',
+    string = 'string',
+    bool = 'bool',
+    int = 'int',
+    float = 'float'
 }
+
+const SCALAR_TYPES = [
+    PropertyType.float,
+    PropertyType.string,
+    PropertyType.bool,
+    PropertyType.int
+];
 
 type PropertyClass = {
     position: Position,
@@ -21,5 +32,6 @@ type PropertyClass = {
 export {
     PropertyClass,
     PropertyType,
+    SCALAR_TYPES,
     PropertyVisibility
 };
