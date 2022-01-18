@@ -1,6 +1,6 @@
 {
   "name": "php-code-actions",
-	"displayName": "php code actions",
+	"displayName": "PHP Code Actions",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -10,16 +10,11 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:php-code-actions.helloWorld",
-        "onCommand:php-code-actions.addConstructor"
+        "onLanguage:php"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
-			{
-				"command": "php-code-actions.helloWorld",
-				"title": "Hello World"
-			},
 			{
 				"command": "php-code-actions.addConstructor",
 				"title": "Add Constructor"
