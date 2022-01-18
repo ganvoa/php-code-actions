@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { getLineForConstructor } from '../../../shared/GetLineForConstructor';
+import { getLineForConstructor } from '../../../shared/getLineForConstructor';
 
 const example = `<?php
 class Example
@@ -17,7 +17,7 @@ class Example
 
     protected $protectedProperty;
     public $publicProperty;
-}`
+}`;
 
 suite('Get Line For Constructor tests', () => {
 
@@ -25,9 +25,10 @@ suite('Get Line For Constructor tests', () => {
         vscode.workspace.openTextDocument({
             content: example
         }).then(document => {
-            const position: vscode.Position = getLineForConstructor(document)
-            assert.strictEqual(position.line, 12);
-        })
+            const position: vscode.Position = getLineForConstructor(document);
+            assert.strictEqual(position.line, 13);
+            assert.strictEqual(position.character, 0);
+        });
     });
 
 });

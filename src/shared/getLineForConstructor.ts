@@ -9,5 +9,5 @@ export function getLineForConstructor(document: TextDocument): Position {
         lastIndex = match.index;
     }
 
-    return document.positionAt(lastIndex)
+    return new Position(document.positionAt(lastIndex).line + 1, 0);
 };

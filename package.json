@@ -1,5 +1,5 @@
 {
-  "name": "php-code-actions",
+	"name": "php-code-actions",
 	"displayName": "PHP Code Actions",
 	"description": "",
 	"version": "0.0.1",
@@ -10,7 +10,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onLanguage:php"
+		"onLanguage:php"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -21,6 +21,7 @@
 			}
 		]
 	},
+	"license": "MIT",
 	"scripts": {
 		"vscode:prepublish": "yarn run package",
 		"compile": "webpack",
@@ -29,7 +30,7 @@
 		"compile-tests": "tsc -p . --outDir out",
 		"watch-tests": "tsc -p . -w --outDir out",
 		"pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
-		"lint": "eslint src --ext ts",
+		"lint": "eslint src --ext ts --fix",
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {

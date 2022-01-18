@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { addConstructorAction } from './actions/AddConstructorAction';
+import { addConstructorAction } from './actions/addConstructorAction';
+
 export class CodeActionProvider implements vscode.CodeActionProvider {
 	public provideCodeActions(): vscode.Command[] {
 		const editor = vscode.window.activeTextEditor;
@@ -34,6 +35,6 @@ export const activate = (context: vscode.ExtensionContext) => {
 			}
 		})
 	);
-}
+};
 
 export function deactivate() { }
