@@ -1,16 +1,18 @@
 # php-code-actions
 
-A very basic but needed set of php code actions for vscode.
+A very basic set of PHP Code Actions for vscode.
 
 ## Features
 
-\!\[Add Constructor\]\(images/feature-x.png\)
+This extension adds different Code Actions for PHP.
+
+- Add Constructor.
 
 ## Known Issues
 
 ...
 
 ## Release Notes
-### 0.1.0
 
-- Added "Add Constructor" code action
+### 0.0.0
+
