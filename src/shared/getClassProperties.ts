@@ -1,5 +1,5 @@
 import { TextDocument } from "vscode";
-import { PropertyClass, PropertyType, PropertyVisibility } from "./PropertyClass";
+import { PropertyClass, PropertyType, PropertyVisibility } from "./types";
 
 /**
  * @param fileContent

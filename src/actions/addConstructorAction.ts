@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { getClassProperties } from '../shared/getClassProperties';
 import { getLineForConstructor } from '../shared/getLineForConstructor';
 import { buildConstructor } from '../shared/buildConstructor';
-import { PropertyClass, PropertyVisibility } from '../shared/PropertyClass';
+import { PropertyClass, PropertyVisibility } from '../shared/types';
 
 export const addConstructorAction = (editor: vscode.TextEditor) => {
     const properties: Map<string, PropertyClass> = getClassProperties(editor.document);

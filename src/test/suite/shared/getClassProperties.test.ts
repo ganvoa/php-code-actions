@@ -44,7 +44,7 @@ class Example
     public $publicProperty;
 }`;
 
-suite('Get Class Properties Suite', () => {
+suite('getClassProperties Suite', () => {
 
     test('properties should have private, protected or public modifier', () => {
         return vscode.workspace.openTextDocument({ content: example }).then(

@@ -15,13 +15,6 @@ enum PropertyType {
     float = 'float'
 }
 
-const SCALAR_TYPES = [
-    PropertyType.float,
-    PropertyType.string,
-    PropertyType.bool,
-    PropertyType.int
-];
-
 type PropertyClass = {
     position: Position,
     name: string,
@@ -32,6 +25,5 @@ type PropertyClass = {
 export {
     PropertyClass,
     PropertyType,
-    SCALAR_TYPES,
     PropertyVisibility
 };

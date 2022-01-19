@@ -19,7 +19,7 @@ class Example
     public $publicProperty;
 }`;
 
-suite('Get Line For Constructor tests', () => {
+suite('getLineForConstructor tests', () => {
 
     test('constructor line should be after last property', () => {
         return vscode.workspace.openTextDocument({
