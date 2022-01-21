@@ -18,6 +18,10 @@
 			{
 				"command": "php-code-actions.addConstructor",
 				"title": "Add Constructor"
+			},
+			{
+				"command": "php-code-actions.addGetter",
+				"title": "Add Getter"
 			}
 		]
 	},

@@ -14,11 +14,10 @@ export const addConstructorAction = (editor: vscode.TextEditor) => {
             .map(prop => prop.name),
         {
             canPickMany: true,
-            title: 'Add constructor for'
+            title: 'Add Getter for'
         }).then((selectedProperties?: string[]) => {
 
-            if (undefined === selectedProperties)
-                {return;}
+            if (undefined === selectedProperties) { return; }
 
             const selectedAsArrayOfProperties: PropertyClass[] = [];
             selectedProperties.forEach(p => {
