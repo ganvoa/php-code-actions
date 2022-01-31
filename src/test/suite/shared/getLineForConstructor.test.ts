@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { getLineForConstructor } from '../../../shared/Class/getLineForConstructor';
+import { getPositionForConstructor } from '../../../shared/Class/getPositionForConstructor';
 
 const example = `<?php
 class Example
@@ -25,7 +25,7 @@ suite('getLineForConstructor tests', () => {
         return vscode.workspace.openTextDocument({
             content: example
         }).then(document => {
-            const position: vscode.Position = getLineForConstructor(document);
+            const position: vscode.Position = getPositionForConstructor(document);
             assert.strictEqual(position.line, 15);
             assert.strictEqual(position.character, 0);
         });

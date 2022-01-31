@@ -1,7 +1,7 @@
 import { Position, TextDocument } from "vscode";
 import { getGroupIndex } from "../Regex/getGroupIndex";
 
-export function getLineForGetter(document: TextDocument): Position {
+export function getPositionForGetter(document: TextDocument): Position {
     const regex = /([\w\W]*?)({)([\w\W]*)(})/gm;
 
     let match: RegExpExecArray | null = regex.exec(document.getText());

@@ -1,6 +1,6 @@
 import { Position, TextDocument } from "vscode";
 
-export function getLineForConstructor(document: TextDocument): Position {
+export function getPositionForConstructor(document: TextDocument): Position {
     const regex = /(private|protected|public)\s+\$(.+)\;/gm;
 
     let match: RegExpExecArray | null;
