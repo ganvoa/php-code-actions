@@ -7,16 +7,16 @@ import { PropertyClass, PropertyVisibility } from '../../../shared/Property/type
 const constructorExpected = 
 `
 /** 
- * @param mixed $property 
- * @param DateTime $propertyDate 
- * @param DateTime|null $propertyDateNullable 
- * @param DateTime|string|null $propertyDateStringNullable 
+ * @param mixed \\$property 
+ * @param DateTime \\$propertyDate 
+ * @param DateTime|null \\$propertyDateNullable 
+ * @param DateTime|string|null \\$propertyDateStringNullable 
  * /
-public function __construct($property, DateTime $propertyDate, DateTime $propertyDateNullable, $propertyDateStringNullable) {
-    $this->property = $property;
-    $this->propertyDate = $propertyDate;
-    $this->propertyDateNullable = $propertyDateNullable;
-    $this->propertyDateStringNullable = $propertyDateStringNullable;
+public function __construct(\\$property, DateTime \\$propertyDate, DateTime \\$propertyDateNullable, \\$propertyDateStringNullable) {
+    \\$this->property = \\$property;
+    \\$this->propertyDate = \\$propertyDate;
+    \\$this->propertyDateNullable = \\$propertyDateNullable;
+    \\$this->propertyDateStringNullable = \\$propertyDateStringNullable;
 }
 `;
 

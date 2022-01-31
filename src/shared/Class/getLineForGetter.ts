@@ -1,13 +1,15 @@
 import { Position, TextDocument } from "vscode";
+import { getGroupIndex } from "../Regex/getGroupIndex";
 
 export function getLineForGetter(document: TextDocument): Position {
-    const regex = /}[\s]+?$/gm;
+    const regex = /([\w\W]*?)({)([\w\W]*)(})/gm;
 
-    let match: RegExpExecArray | null;
-    let lastIndex = 0;
-    while (match = regex.exec(document.getText())) {
-        lastIndex = match.index;
+    let match: RegExpExecArray | null = regex.exec(document.getText());
+    let position = new Position(0, 0);
+    if (null !== match) {
+        const group = getGroupIndex(match, 3);
+        position = position.with(document.positionAt(group.end).line);
     }
 
-    return new Position(document.positionAt(lastIndex).line - 1, 0);
+    return position;
 };
