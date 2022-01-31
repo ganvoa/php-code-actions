@@ -23,6 +23,18 @@
 				"command": "php-code-actions.addGetter",
 				"title": "Add Getter"
 			}
+		],
+		"configuration": [
+			{
+				"title": "PHP Code Actions",
+				"properties": {
+					"php-code-actions.getter.addPrefix": {
+						"type": "boolean",
+						"default": true,
+						"description": "Adds 'get' prefix to generated getter function."
+					}
+				}
+			}
 		]
 	},
 	"license": "MIT",

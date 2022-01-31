@@ -6,7 +6,7 @@ import { PropertyClass } from "./Property/types";
 const phpDocPre = `${breakLine()}${indentation()}/**`;
 const phpDocPost = `${breakLine()}${indentation()} */`;
 const constructorPre = `${breakLine()}${indentation()}public function __construct(`;
-const constructorPost = `) {`;
+const constructorPost = `)${breakLine()}${indentation()}{`;
 const constructorEnd = `${breakLine()}${indentation()}}`;
 
 export function buildConstructor(selectedProperties: PropertyClass[]) {
@@ -37,9 +37,9 @@ export function buildConstructor(selectedProperties: PropertyClass[]) {
         constructor = constructor
             .concat(`${breakLine()}`)
             .concat(`${indentation(2)}`)
-            .concat('$this->')
+            .concat('\\$this->')
             .concat(prop.name)
-            .concat(' = $')
+            .concat(' = \\$')
             .concat(prop.name)
             .concat(';');
     });
@@ -52,6 +52,6 @@ function propForConstructor(prop: PropertyClass): string {
 }
 
 function propForPhpDoc(prop: PropertyClass): string {
-    return "@param ".concat(prop.type).concat(" $").concat(prop.name);
+    return "@param ".concat(prop.type).concat(" \\$").concat(prop.name);
 }
 

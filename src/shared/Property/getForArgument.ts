@@ -13,9 +13,9 @@ export function getForArgument(property: PropertyClass): string {
         return property.type
             .replace("|null", "")
             .replace("null|", "")
-            .concat(' $')
+            .concat(' \\$')
             .concat(property.name);
     }
 
-    return '$'.concat(property.name);
+    return '\\$'.concat(property.name);
 }

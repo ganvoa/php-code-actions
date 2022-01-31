@@ -27,13 +27,12 @@ export const addConstructorAction = (editor: vscode.TextEditor) => {
                 }
             });
 
-            editor.edit(edit => {
-                const constructor = buildConstructor(selectedAsArrayOfProperties);
-                edit.insert(
-                    position,
-                    constructor
-                );
-            });
+            const constructor = buildConstructor(selectedAsArrayOfProperties);
+
+            editor.insertSnippet(
+                new vscode.SnippetString(constructor),
+                position
+            );
         });
 
 };
