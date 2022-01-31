@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
 import * as vscode from 'vscode';
-import { getClassProperties } from '../../../shared/getClassProperties';
+import { getProperties } from '../../../shared/Class/getProperties';
 
 const example = `<?php
 class Example
@@ -49,7 +49,7 @@ suite('getClassProperties Suite', () => {
     test('properties should have private, protected or public modifier', () => {
         return vscode.workspace.openTextDocument({ content: example }).then(
             document => {
-                const properties = getClassProperties(document);
+                const properties = getProperties(document);
                 assert.strictEqual(properties.size, 12);
                 assert.strictEqual(properties.has('dateTimeVar1'), true);
                 assert.strictEqual(properties.has('dateTimeVar2'), true);
@@ -69,7 +69,7 @@ suite('getClassProperties Suite', () => {
     test('var type should be assigned when exists', () => {
         return vscode.workspace.openTextDocument({ content: example }).then(
             document => {
-                const properties = getClassProperties(document);
+                const properties = getProperties(document);
                 assert.strictEqual(properties.get('dateTimeVar1')?.type, "DateTime");
                 assert.strictEqual(properties.get('dateTimeVar2')?.type, "DateTime");
                 assert.strictEqual(properties.get('dateTimeVar3')?.type, "DateTime");

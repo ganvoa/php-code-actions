@@ -1,4 +1,4 @@
-import { PropertyClass } from "./types";
+import { PropertyClass } from "./Property/types";
 
 export const phpDocPre = `\n\t/**`;
 export const phpDocPost = `\n\t */`;

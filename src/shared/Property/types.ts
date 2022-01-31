@@ -15,6 +15,10 @@ enum PropertyType {
     float = 'float'
 }
 
+function isPrimitiveType(type: string): boolean {
+    return ['bool', 'string', 'int', 'float'].includes(type);
+}
+
 type PropertyClass = {
     position: Position,
     name: string,
@@ -25,5 +29,6 @@ type PropertyClass = {
 export {
     PropertyClass,
     PropertyType,
-    PropertyVisibility
+    PropertyVisibility,
+    isPrimitiveType
 };

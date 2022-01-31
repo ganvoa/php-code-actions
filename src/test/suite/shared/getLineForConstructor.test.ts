@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { getLineForConstructor } from '../../../shared/getLineForConstructor';
+import { getLineForConstructor } from '../../../shared/Class/getLineForConstructor';
 
 const example = `<?php
 class Example

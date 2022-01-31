@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
-import { getClassProperties } from '../shared/getClassProperties';
-import { PropertyClass, PropertyVisibility } from '../shared/types';
+import { getProperties } from '../shared/Class/getProperties';
+import { PropertyClass, PropertyVisibility } from '../shared/Property/types';
 import { buildGetter } from '../shared/buildGetter';
-import { getLineForGetter } from '../shared/getLineForGetter';
+import { getLineForGetter } from '../shared/Class/getLineForGetter';
 
 export const addGetterAction = (editor: vscode.TextEditor) => {
-    const properties: Map<string, PropertyClass> = getClassProperties(editor.document);
+    const properties: Map<string, PropertyClass> = getProperties(editor.document);
     const position: vscode.Position = getLineForGetter(editor.document);
 
     vscode.window.showQuickPick(

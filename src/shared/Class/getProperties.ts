@@ -1,10 +1,10 @@
 import { TextDocument } from "vscode";
-import { PropertyClass, PropertyType, PropertyVisibility } from "./types";
+import { PropertyClass, PropertyType, PropertyVisibility } from "../Property/types";
 
 /**
  * @param fileContent
  */
-export function getClassProperties(document: TextDocument): Map<string, PropertyClass> {
+export function getProperties(document: TextDocument): Map<string, PropertyClass> {
     const regex = /(@var\s+([\w\\|]+)[\t\r\n\s]{1}[\w\W]*?\*\/)?[\t\r\n\s]+(private|protected|public)\s+\$(.+)\;/gm;
     const results = new Map<string, PropertyClass>();
 

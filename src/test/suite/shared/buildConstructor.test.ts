@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import { suite, test } from 'mocha';
 import * as vscode from 'vscode';
 import { buildConstructor } from '../../../shared/buildConstructor';
-import { PropertyClass, PropertyVisibility } from '../../../shared/types';
+import { PropertyClass, PropertyVisibility } from '../../../shared/Property/types';
 
 const constructorExpected = 
 `

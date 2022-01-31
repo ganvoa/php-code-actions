@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
-import { getClassProperties } from '../shared/getClassProperties';
-import { getLineForConstructor } from '../shared/getLineForConstructor';
+import { getProperties } from '../shared/Class/getProperties';
+import { getLineForConstructor } from '../shared/Class/getLineForConstructor';
 import { buildConstructor } from '../shared/buildConstructor';
-import { PropertyClass, PropertyVisibility } from '../shared/types';
+import { PropertyClass, PropertyVisibility } from '../shared/Property/types';
 
 export const addConstructorAction = (editor: vscode.TextEditor) => {
-    const properties: Map<string, PropertyClass> = getClassProperties(editor.document);
+    const properties: Map<string, PropertyClass> = getProperties(editor.document);
     const position: vscode.Position = getLineForConstructor(editor.document);
 
     vscode.window.showQuickPick(

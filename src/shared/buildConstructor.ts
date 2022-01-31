@@ -1,10 +1,13 @@
-import { PropertyClass, PropertyType } from "./types";
+import { breakLine } from "./Document/breakLine";
+import { indentation } from "./Document/indentation";
+import { getForArgument } from "./Property/getForArgument";
+import { PropertyClass } from "./Property/types";
 
-export const phpDocPre = `\n\t/**`;
-export const phpDocPost = `\n\t */`;
-export const constructorPre = `\n\tpublic function __construct(`;
-export const constructorPost = `) {`;
-export const constructorEnd = `\t\n\t}\n`;
+const phpDocPre = `${breakLine()}${indentation()}/**`;
+const phpDocPost = `${breakLine()}${indentation()} */`;
+const constructorPre = `${breakLine()}${indentation()}public function __construct(`;
+const constructorPost = `) {`;
+const constructorEnd = `${breakLine()}${indentation()}}`;
 
 export function buildConstructor(selectedProperties: PropertyClass[]) {
 
@@ -12,11 +15,11 @@ export function buildConstructor(selectedProperties: PropertyClass[]) {
 
     constructor = constructor.concat(phpDocPre);
     selectedProperties.forEach((prop: PropertyClass) => {
-
         constructor = constructor
-            .concat(`\n\t * `)
+            .concat(`${breakLine()}${indentation()} * `)
             .concat(propForPhpDoc(prop));
     });
+
     constructor = constructor.concat(phpDocPost);
 
     constructor = constructor.concat(constructorPre);
@@ -32,28 +35,20 @@ export function buildConstructor(selectedProperties: PropertyClass[]) {
 
     selectedProperties.forEach((prop: PropertyClass) => {
         constructor = constructor
-            .concat('\n\t\t', '$this->', prop.name, ' = $', prop.name, ';');
+            .concat(`${breakLine()}`)
+            .concat(`${indentation(2)}`)
+            .concat('$this->')
+            .concat(prop.name)
+            .concat(' = $')
+            .concat(prop.name)
+            .concat(';');
     });
 
     return constructor.concat(constructorEnd);
 }
 
 function propForConstructor(prop: PropertyClass): string {
-    if (
-        prop.type !== PropertyType.mixed &&
-        (
-            (prop.type.split('|').length <= 2 && prop.type.includes('null') === true)
-            ||
-            (prop.type.split('|').length <= 1 && prop.type.includes('null') === false)
-        )
-    ) {
-        return prop.type
-            .replace("|null", "")
-            .replace("null|", "")
-            .concat(' $').concat(prop.name);
-    }
-
-    return '$'.concat(prop.name);
+    return getForArgument(prop);
 }
 
 function propForPhpDoc(prop: PropertyClass): string {
