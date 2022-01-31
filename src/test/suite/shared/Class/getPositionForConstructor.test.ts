@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import { getPositionForConstructor } from '../../../shared/Class/getPositionForConstructor';
+import { getPositionForConstructor } from '../../../../shared/Class/getPositionForConstructor';
 
 const example = `<?php
 class Example
@@ -19,7 +19,7 @@ class Example
     public $publicProperty;
 }`;
 
-suite('getLineForConstructor tests', () => {
+suite('getPositionForConstructor tests', () => {
 
     test('constructor line should be after last property', () => {
         return vscode.workspace.openTextDocument({

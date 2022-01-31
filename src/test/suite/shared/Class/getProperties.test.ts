@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
 import * as vscode from 'vscode';
-import { getProperties } from '../../../shared/Class/getProperties';
+import { getProperties } from '../../../../shared/Class/getProperties';
 
 const example = `<?php
 class Example
@@ -44,7 +44,7 @@ class Example
     public $publicProperty;
 }`;
 
-suite('getClassProperties Suite', () => {
+suite('getProperties Suite', () => {
 
     test('properties should have private, protected or public modifier', () => {
         return vscode.workspace.openTextDocument({ content: example }).then(
