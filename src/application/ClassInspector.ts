@@ -1,9 +1,9 @@
 import VsCode from "../domain/VsCode";
-import { PropertyType, PropertyVisibility } from "../shared/Property/types";
-import { getGroupIndex } from "../shared/Regex/getGroupIndex";
 import Property from "../domain/Property";
 import PositionOffset from "../domain/PositionOffset";
 import RegexpHelper from "./RegexpHelper";
+import { PropertyVisibility } from "../domain/PropertyVisibility";
+import PropertyType from "../domain/PropertyType";
 
 export default class ClassInspector {
 

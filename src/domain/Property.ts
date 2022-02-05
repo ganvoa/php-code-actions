@@ -1,5 +1,5 @@
-import { PropertyVisibility } from "../shared/Property/types";
 import PositionOffset from "./PositionOffset";
+import { PropertyVisibility } from "./PropertyVisibility";
 
 export default class Property {
 

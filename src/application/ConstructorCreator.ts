@@ -1,32 +1,34 @@
-import Editor from "../domain/Editor";
 import Property from "../domain/Property";
+import VsCode from "../domain/VsCode";
 import PropertyCreator from "./PropertyCreator";
-
 
 export default class ConstructorCreator {
 
     propertyCreator: PropertyCreator;
-    editor: Editor;
+    vsCode: VsCode;
 
-    constructor(propertyCreator: PropertyCreator, editor: Editor) {
+    constructor(propertyCreator: PropertyCreator, vsCode: VsCode) {
         this.propertyCreator = propertyCreator;
-        this.editor = editor;
+        this.vsCode = vsCode;
     }
 
     build(selectedProperties: Property[]): string {
 
-        const phpDocPre = `${this.editor.getBreakLine()}${this.editor.getIndentation()}/**`;
-        const phpDocPost = `${this.editor.getBreakLine()}${this.editor.getIndentation()} */`;
-        const constructorPre = `${this.editor.getBreakLine()}${this.editor.getIndentation()}public function __construct(`;
-        const constructorPost = `)${this.editor.getBreakLine()}${this.editor.getIndentation()}{`;
-        const constructorEnd = `${this.editor.getBreakLine()}${this.editor.getIndentation()}}`;
+        const breakLine = this.vsCode.getEditorPreferences().breakLine;
+        const indentation = this.vsCode.getEditorPreferences().indentation;
+
+        const phpDocPre = `${breakLine}${indentation}/**`;
+        const phpDocPost = `${breakLine}${indentation} */`;
+        const constructorPre = `${breakLine}${indentation}public function __construct(`;
+        const constructorPost = `)${breakLine}${indentation}{`;
+        const constructorEnd = `${breakLine}${indentation}}`;
 
         let constructor = "";
 
         constructor = constructor.concat(phpDocPre);
         selectedProperties.forEach((prop: Property) => {
             constructor = constructor
-                .concat(`${this.editor.getBreakLine()}${this.editor.getIndentation()} * `)
+                .concat(`${breakLine}${indentation} * `)
                 .concat(this.propertyCreator.getForDoc(prop));
         });
 
@@ -45,8 +47,8 @@ export default class ConstructorCreator {
 
         selectedProperties.forEach((prop: Property) => {
             constructor = constructor
-                .concat(`${this.editor.getBreakLine()}`)
-                .concat(`${this.editor.getIndentation(2)}`)
+                .concat(`${breakLine}`)
+                .concat(`${indentation.repeat(2)}`)
                 .concat('\\$this->')
                 .concat(prop.name)
                 .concat(' = \\$')

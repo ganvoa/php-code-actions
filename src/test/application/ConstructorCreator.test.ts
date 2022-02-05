@@ -2,12 +2,12 @@ import * as assert from 'assert';
 import { suite, test } from 'mocha';
 import ConstructorCreator from '../../application/ConstructorCreator';
 import PropertyCreator from '../../application/PropertyCreator';
-import Editor from '../../domain/Editor';
 import PositionOffset from '../../domain/PositionOffset';
 import Property from '../../domain/Property';
-import { PropertyVisibility } from '../../shared/Property/types';
 import { mock, when, instance } from 'ts-mockito';
 import VsCode from '../../domain/VsCode';
+import { PropertyVisibility } from '../../domain/PropertyVisibility';
+import EditorPreferences from '../../domain/EditorPreferences';
 
 const constructorExpected =
     `
@@ -55,13 +55,13 @@ suite('ConstructorCreator Suite', () => {
             PropertyVisibility.private
         ));
 
+        const editorPreferences = new EditorPreferences('    ', '\n');
         const vscodeMock: VsCode = mock<VsCode>();
-        when(vscodeMock.getIndentation()).thenReturn('    ');
+        when(vscodeMock.getEditorPreferences()).thenReturn(editorPreferences);
         let vscode: VsCode = instance(vscodeMock);
 
         const propertyCreator: PropertyCreator = new PropertyCreator();
-        const editor: Editor = new Editor(vscode);
-        const constructorCreator: ConstructorCreator = new ConstructorCreator(propertyCreator, editor);
+        const constructorCreator: ConstructorCreator = new ConstructorCreator(propertyCreator, vscode);
 
         const constructorBuilt = constructorCreator.build(properties);
         assert.strictEqual(constructorBuilt.replace(/[\n\t\r\s]/gm, ''), constructorExpected.replace(/[\n\t\r\s]/gm, ''));
