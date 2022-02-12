@@ -1,6 +1,11 @@
 import * as vscode from 'vscode';
 import { AddConstructorCodeAction } from './actions/AddConstructorCodeAction';
 import { AddGetterCodeAction } from './actions/AddGetterCodeAction';
+import ClassInspector from './application/ClassInspector';
+import ConstructorCreator from './application/ConstructorCreator';
+import GetterCreator from './application/GetterCreator';
+import PropertyCreator from './application/PropertyCreator';
+import RegexpHelper from './application/RegexpHelper';
 import EditorAction from './domain/EditorAction';
 import { VsCodeEnvironment } from './infrastructure/VsCodeEnvironment';
 
@@ -30,11 +35,17 @@ class CodeActionProvider implements vscode.CodeActionProvider {
 
 export const activate = (context: vscode.ExtensionContext) => {
 
-	const vsCode: VsCodeEnvironment = new VsCodeEnvironment();
-
 	const actions: EditorAction[] = [];
-	actions.push(new AddConstructorCodeAction(vsCode));
-	actions.push(new AddGetterCodeAction(vsCode));
+
+	const vsCode: VsCodeEnvironment = new VsCodeEnvironment();
+	const regexpHelper = new RegexpHelper();
+	const propertyCreator = new PropertyCreator();
+	const constructorCreator = new ConstructorCreator(propertyCreator, vsCode);
+	const classInspector = new ClassInspector(vsCode, regexpHelper);
+	const getterCreator = new GetterCreator(propertyCreator, vsCode);
+
+	actions.push(new AddConstructorCodeAction(vsCode, classInspector, constructorCreator));
+	actions.push(new AddGetterCodeAction(vsCode, classInspector, getterCreator));
 
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(

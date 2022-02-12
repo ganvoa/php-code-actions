@@ -10,17 +10,23 @@ import VsCode from "../domain/VsCode";
 export class AddConstructorCodeAction implements EditorAction {
 
     vsCode: VsCode;
+    classInspector: ClassInspector;
+    constructorCreator: ConstructorCreator;
+    title: string = "Add Constructor";
+    command: string = "php-code-actions.AddConstructor";
 
-    constructor(vsCode: VsCode) {
+    constructor(vsCode: VsCode, classInspector: ClassInspector, constructorCreator: ConstructorCreator) {
         this.vsCode = vsCode;
+        this.constructorCreator = constructorCreator;
+        this.classInspector = classInspector;
     }
 
     getTitle(): string {
-        throw new Error("Method not implemented.");
+        return this.title;
     }
 
     getCommand(): string {
-        throw new Error("Method not implemented.");
+        return this.command;
     }
 
     run(): void {
@@ -33,12 +39,9 @@ export class AddConstructorCodeAction implements EditorAction {
             return;
         }
 
-        const regexpHelper = new RegexpHelper();
-        const propertyCreator = new PropertyCreator();
-        const constructorCreator = new ConstructorCreator(propertyCreator, this.vsCode);
-        const classInspector = new ClassInspector(this.vsCode, regexpHelper);
-        const properties = classInspector.getProperties();
-        const offset = classInspector.getOffsetForConstructor();
+
+        const properties = this.classInspector.getProperties();
+        const offset = this.classInspector.getOffsetForConstructor();
 
         this.vsCode.showQuickPick(
             Array.from(properties.values())
@@ -59,7 +62,7 @@ export class AddConstructorCodeAction implements EditorAction {
                     }
                 });
 
-                const constructor = constructorCreator.build(selectedAsArrayOfProperties);
+                const constructor = this.constructorCreator.build(selectedAsArrayOfProperties);
                 this.vsCode.insertText(offset, constructor);
             });
     }

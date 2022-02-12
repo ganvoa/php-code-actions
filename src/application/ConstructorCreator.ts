@@ -49,9 +49,9 @@ export default class ConstructorCreator {
             constructor = constructor
                 .concat(`${breakLine}`)
                 .concat(`${indentation.repeat(2)}`)
-                .concat('\\$this->')
+                .concat('$this->')
                 .concat(prop.name)
-                .concat(' = \\$')
+                .concat(' = $')
                 .concat(prop.name)
                 .concat(';');
         });

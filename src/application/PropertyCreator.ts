@@ -9,11 +9,11 @@ export default class PropertyCreator {
             !property.isPrimitiveType()
         ) {
             return property.typesAsString()
-                .concat(' \\$')
+                .concat(' $')
                 .concat(property.name);
         }
 
-        return '\\$'.concat(property.name);
+        return '$'.concat(property.name);
     }
 
     getForConstructor(property: Property): string {
@@ -21,7 +21,7 @@ export default class PropertyCreator {
     }
 
     getForDoc(property: Property): string {
-        return "@param ".concat(property.type).concat(" \\$").concat(property.name);
+        return "@param ".concat(property.type).concat(" $").concat(property.name);
     }
 
 }
