@@ -1,6 +1,7 @@
 import ClassInspector from "../application/ClassInspector";
 import GetterCreator from "../application/GetterCreator";
 import EditorAction from "../domain/EditorAction";
+import Property from "../domain/Property";
 import VsCode from "../domain/VsCode";
 
 export class AddGetterCodeAction implements EditorAction {
@@ -18,8 +19,16 @@ export class AddGetterCodeAction implements EditorAction {
     }
 
     runnable(): boolean {
+
         if (!this.vsCode.hasActiveEditor()) {
             false;
+        }
+
+        let properties = this.classInspector.getNonPublicProperties();
+        properties = this.filterWithoutGetter(properties);
+
+        if (properties.size <= 0) {
+            return false;
         }
 
         return true;
@@ -39,7 +48,8 @@ export class AddGetterCodeAction implements EditorAction {
             return Promise.resolve();
         }
 
-        const properties = this.classInspector.getNonPublicProperties();
+        let properties = this.classInspector.getNonPublicProperties();
+        properties = this.filterWithoutGetter(properties);
 
         const selectedProperties: string[] = await this.vsCode.quickPickMultiple(
             'Add Getter for', Array.from(properties.values()).map(prop => prop.name));
@@ -59,5 +69,18 @@ export class AddGetterCodeAction implements EditorAction {
 
         this.vsCode.insertText(offset, getter);
         return Promise.resolve();
+    }
+
+    private filterWithoutGetter(properties: Map<string, Property>): Map<string, Property> {
+        const propertiesWithoutGetter = new Map<string, Property>();
+
+        properties.forEach((prop, propName) => {
+            const regex = new RegExp(`return \\$this->${propName};`, 'g');
+            if (-1 === this.vsCode.getText().search(regex)) {
+                return propertiesWithoutGetter.set(propName, prop);
+            }
+        });
+
+        return propertiesWithoutGetter;
     }
 }
