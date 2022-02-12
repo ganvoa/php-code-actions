@@ -5,7 +5,7 @@ import PositionOffset from '../domain/PositionOffset';
 import VsCode from '../domain/VsCode';
 
 export class VsCodeEnvironment implements VsCode {
-    
+
     quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]> {
         return vscode.window.showQuickPick(options, {
             canPickMany: true,
@@ -13,17 +13,20 @@ export class VsCodeEnvironment implements VsCode {
         }).then((selectedProperties?: string[]) => {
 
             if (undefined === selectedProperties) { return []; }
-        
+
             return selectedProperties;
-        
+
         });
     }
 
-    insertText(offset: PositionOffset, content: string): void {
+    insertText(offset: PositionOffset, content: string): Thenable<boolean> {
         const editor = this.getActiveTextEditor();
-        editor.edit(edit => {
+
+        const position = editor.document.positionAt(offset.value);
+
+        return editor.edit(edit => {
             edit.insert(
-                editor.document.positionAt(offset.value),
+                position,
                 content
             );
         });

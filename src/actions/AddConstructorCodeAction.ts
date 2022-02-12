@@ -56,14 +56,12 @@ export class AddConstructorCodeAction implements EditorAction {
 
         const selectedAsArrayOfProperties: Property[] = [];
         selectedProperties.forEach(p => {
-            let property = properties.get(p);
-            if (undefined !== property) {
-                selectedAsArrayOfProperties.push(property);
-            }
+            let property = properties.get(p) as Property;
+            selectedAsArrayOfProperties.push(property);
         });
 
         const constructor = this.constructorCreator.build(selectedAsArrayOfProperties);
-        this.vsCode.insertText(offset, constructor);
+        await this.vsCode.insertText(offset, constructor);
         return Promise.resolve();
     }
 }

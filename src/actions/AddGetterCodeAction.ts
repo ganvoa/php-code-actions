@@ -61,13 +61,11 @@ export class AddGetterCodeAction implements EditorAction {
         const offset = this.classInspector.getOffsetForGetter();
         let getter = '';
         selectedProperties.forEach(p => {
-            let property = properties.get(p);
-            if (undefined !== property) {
-                getter = getter.concat(this.getterCreator.build(property));
-            }
+            let property = properties.get(p) as Property;
+            getter = getter.concat(this.getterCreator.build(property));
         });
 
-        this.vsCode.insertText(offset, getter);
+        await this.vsCode.insertText(offset, getter);
         return Promise.resolve();
     }
 

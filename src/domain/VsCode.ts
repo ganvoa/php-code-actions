@@ -8,7 +8,7 @@ export default interface VsCode {
 
     hasActiveEditor(): boolean;
 
-    insertText(offset: PositionOffset, content: string): void;
+    insertText(offset: PositionOffset, content: string): Thenable<boolean>;
 
     getEditorPreferences(): EditorPreferences;
 
