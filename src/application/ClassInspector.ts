@@ -55,7 +55,8 @@ export default class ClassInspector {
     }
 
     getProperties(): Map<string, Property> {
-        const regex = /(@var\s+([\w\\|]+)[\t\r\n\s]{1}[\w\W]*?\*\/)?[\t\r\n\s]+(private|protected|public)\s+\$(.+)\;/gm;
+        const regex = /(@var\s+([\w\\|<>\s,]+)[\t\r\n\s]{1}[\w\W]*?\*\/)?[\t\r\n\s]+(private|protected|public)\s+\$(.+)\;/gm;
+        
         const properties = new Map<string, Property>();
 
         let match = null;

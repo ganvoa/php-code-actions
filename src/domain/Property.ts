@@ -38,6 +38,6 @@ export default class Property {
     }
 
     isPrimitiveType(): boolean {
-        return ['bool', 'string', 'int', 'float'].includes(this.type);
+        return ['bool', 'string', 'int', 'float', 'array'].includes(this.type) || this.type.search(/array/) !== -1;
     }
 }

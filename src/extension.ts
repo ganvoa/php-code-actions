@@ -22,6 +22,7 @@ class CodeActionProvider implements vscode.CodeActionProvider {
 
 		for (let index = 0; index < this.actions.length; index++) {
 			const action = this.actions[index];
+
 			if (action.runnable()) {
 				const vsCodeAction = new vscode.CodeAction(action.getTitle(), vscode.CodeActionKind.Refactor);
 				vsCodeAction.command = {
@@ -30,6 +31,7 @@ class CodeActionProvider implements vscode.CodeActionProvider {
 				};
 				codeActions.push(vsCodeAction);
 			}
+
 		}
 
 		return codeActions;
