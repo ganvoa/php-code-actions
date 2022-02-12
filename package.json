@@ -5,8 +5,12 @@
 		"email": "nicolasgamboa.a@gmail.com",
 		"name": "Nicolás Gamboa"
 	},
+	"repository": {
+		"url": "https://github.com/ganvoa/php-code-actions"
+	},
+	"publisher": "ganvoa",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.1.1",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
