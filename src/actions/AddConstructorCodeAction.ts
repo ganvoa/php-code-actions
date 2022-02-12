@@ -1,10 +1,7 @@
 import ClassInspector from "../application/ClassInspector";
 import ConstructorCreator from "../application/ConstructorCreator";
-import PropertyCreator from "../application/PropertyCreator";
-import RegexpHelper from "../application/RegexpHelper";
 import EditorAction from "../domain/EditorAction";
 import Property from "../domain/Property";
-import { PropertyVisibility } from "../domain/PropertyVisibility";
 import VsCode from "../domain/VsCode";
 
 export class AddConstructorCodeAction implements EditorAction {
@@ -29,7 +26,7 @@ export class AddConstructorCodeAction implements EditorAction {
         return this.command;
     }
 
-    run(): void {
+    async run(): Promise<void> {
 
         if (!this.vsCode.hasActiveEditor()) {
             return;
@@ -39,31 +36,26 @@ export class AddConstructorCodeAction implements EditorAction {
             return;
         }
 
-
-        const properties = this.classInspector.getProperties();
         const offset = this.classInspector.getOffsetForConstructor();
+        const properties = this.classInspector.getNonPublicProperties();
 
-        this.vsCode.showQuickPick(
-            Array.from(properties.values())
-                .filter(prop => prop.visibility !== PropertyVisibility.public)
-                .map(prop => prop.name),
-            {
-                canPickMany: true,
-                title: 'Add Constructor for'
-            }).then((selectedProperties?: string[]) => {
+        const selectedProperties: string[] = await this.vsCode.quickPickMultiple(
+            'Add Constructor for', Array.from(properties.values()).map(prop => prop.name));
 
-                if (undefined === selectedProperties) { return; }
+        if (selectedProperties.length <= 0) {
+            return Promise.resolve();
+        }
 
-                const selectedAsArrayOfProperties: Property[] = [];
-                selectedProperties.forEach(p => {
-                    let property = properties.get(p);
-                    if (undefined !== property) {
-                        selectedAsArrayOfProperties.push(property);
-                    }
-                });
+        const selectedAsArrayOfProperties: Property[] = [];
+        selectedProperties.forEach(p => {
+            let property = properties.get(p);
+            if (undefined !== property) {
+                selectedAsArrayOfProperties.push(property);
+            }
+        });
 
-                const constructor = this.constructorCreator.build(selectedAsArrayOfProperties);
-                this.vsCode.insertText(offset, constructor);
-            });
+        const constructor = this.constructorCreator.build(selectedAsArrayOfProperties);
+        this.vsCode.insertText(offset, constructor);
+        return Promise.resolve();
     }
 }

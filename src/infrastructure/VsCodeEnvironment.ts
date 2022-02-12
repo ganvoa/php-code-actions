@@ -5,6 +5,19 @@ import PositionOffset from '../domain/PositionOffset';
 import VsCode from '../domain/VsCode';
 
 export class VsCodeEnvironment implements VsCode {
+    
+    quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]> {
+        return vscode.window.showQuickPick(options, {
+            canPickMany: true,
+            title: title
+        }).then((selectedProperties?: string[]) => {
+
+            if (undefined === selectedProperties) { return []; }
+        
+            return selectedProperties;
+        
+        });
+    }
 
     insertText(offset: PositionOffset, content: string): void {
         const editor = this.getActiveTextEditor();

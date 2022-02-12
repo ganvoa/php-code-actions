@@ -40,6 +40,20 @@ export default class ClassInspector {
         return offset;
     }
 
+    getNonPublicProperties(): Map<string, Property> {
+        const properties = this.getProperties();
+        const propertiesSelected = Array.from(properties.values())
+            .filter(prop => prop.visibility !== PropertyVisibility.public)
+            .map(prop => prop.name);
+
+        const selected: Map<string, Property> = new Map<string, Property>();
+        propertiesSelected.forEach(value => {
+            selected.set(value, properties.get(value) as Property);
+        });
+
+        return selected;
+    }
+
     getProperties(): Map<string, Property> {
         const regex = /(@var\s+([\w\\|]+)[\t\r\n\s]{1}[\w\W]*?\*\/)?[\t\r\n\s]+(private|protected|public)\s+\$(.+)\;/gm;
         const properties = new Map<string, Property>();

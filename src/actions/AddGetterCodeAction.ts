@@ -1,9 +1,6 @@
 import ClassInspector from "../application/ClassInspector";
 import GetterCreator from "../application/GetterCreator";
-import PropertyCreator from "../application/PropertyCreator";
-import RegexpHelper from "../application/RegexpHelper";
 import EditorAction from "../domain/EditorAction";
-import { PropertyVisibility } from "../domain/PropertyVisibility";
 import VsCode from "../domain/VsCode";
 
 export class AddGetterCodeAction implements EditorAction {
@@ -28,33 +25,31 @@ export class AddGetterCodeAction implements EditorAction {
         return this.command;
     }
 
-    run(): void {
+    async run(): Promise<void> {
 
         if (!this.vsCode.hasActiveEditor()) {
-            return;
+            return Promise.resolve();
         }
 
-        const properties = this.classInspector.getProperties();
+        const properties = this.classInspector.getNonPublicProperties();
+
+        const selectedProperties: string[] = await this.vsCode.quickPickMultiple(
+            'Add Getter for', Array.from(properties.values()).map(prop => prop.name));
+
+        if (selectedProperties.length <= 0) {
+            return Promise.resolve();
+        }
+
         const offset = this.classInspector.getOffsetForGetter();
+        let getter = '';
+        selectedProperties.forEach(p => {
+            let property = properties.get(p);
+            if (undefined !== property) {
+                getter = getter.concat(this.getterCreator.build(property));
+            }
+        });
 
-        this.vsCode.showQuickPick(
-            Array.from(properties.values())
-                .filter(prop => prop.visibility !== PropertyVisibility.public)
-                .map(prop => prop.name),
-            {
-                canPickMany: true,
-                title: 'Add Getter for'
-            }).then((selectedProperties?: string[]) => {
-
-                if (undefined === selectedProperties) { return; }
-
-                selectedProperties.forEach(p => {
-                    let property = properties.get(p);
-                    if (undefined !== property) {
-                        const getter = this.getterCreator.build(property);
-                        this.vsCode.insertText(offset, getter);
-                    }
-                });
-            });
+        this.vsCode.insertText(offset, getter);
+        return Promise.resolve();
     }
 }

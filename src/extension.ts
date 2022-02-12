@@ -57,7 +57,9 @@ export const activate = (context: vscode.ExtensionContext) => {
 	for (let index = 0; index < actions.length; index++) {
 		const action = actions[index];
 		context.subscriptions.push(
-			vscode.commands.registerCommand(action.getCommand(), action.run)
+			vscode.commands.registerCommand(action.getCommand(), () => {
+				action.run();
+			})
 		);
 	}
 };
