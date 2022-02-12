@@ -29,6 +29,7 @@ export class VsCodeEnvironment implements VsCode {
                 position,
                 content
             );
+            vscode.window.showTextDocument(this.getCurrentDocument());
         });
     }
 
