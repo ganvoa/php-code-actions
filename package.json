@@ -5,6 +5,9 @@
 		"email": "nicolasgamboa.a@gmail.com",
 		"name": "Nicolás Gamboa"
 	},
+	"repository": {
+		"url": "https://github.com/ganvoa/php-code-actions"
+	},
 	"publisher": "Nicolas Gamboa",
 	"description": "",
 	"version": "0.1.0",
