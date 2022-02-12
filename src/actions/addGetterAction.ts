@@ -1,12 +1,20 @@
 import * as vscode from 'vscode';
-import { getProperties } from '../shared/Class/getProperties';
-import { PropertyClass, PropertyVisibility } from '../shared/Property/types';
-import { buildGetter } from '../shared/buildGetter';
-import { getPositionForGetter } from '../shared/Class/getPositionForGetter';
+import RegexpHelper from '../application/RegexpHelper';
+import PropertyCreator from '../application/PropertyCreator';
+import { VsCodeEnvironment } from '../infrastructure/VsCodeEnvironment';
+import GetterCreator from '../application/GetterCreator';
+import ClassInspector from '../application/ClassInspector';
+import { PropertyVisibility } from '../domain/PropertyVisibility';
 
 export const addGetterAction = (editor: vscode.TextEditor) => {
-    const properties: Map<string, PropertyClass> = getProperties(editor.document);
-    const position: vscode.Position = getPositionForGetter(editor.document);
+
+    const regexpHelper = new RegexpHelper();
+    const propertyCreator = new PropertyCreator();
+    const vsCode = new VsCodeEnvironment();
+    const getterCreator = new GetterCreator(propertyCreator, vsCode);
+    const classInspector = new ClassInspector(vsCode, regexpHelper);
+    const properties = classInspector.getProperties();
+    const offset = classInspector.getOffsetForGetter();
 
     vscode.window.showQuickPick(
         Array.from(properties.values())
@@ -23,9 +31,9 @@ export const addGetterAction = (editor: vscode.TextEditor) => {
                 selectedProperties.forEach(p => {
                     let property = properties.get(p);
                     if (undefined !== property) {
-                        const getter = buildGetter(property);
+                        const getter = getterCreator.build(property);
                         edit.insert(
-                            position,
+                            editor.document.positionAt(offset.value),
                             getter
                         );
                     }
