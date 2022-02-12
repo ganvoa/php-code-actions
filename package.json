@@ -5,8 +5,9 @@
 		"email": "nicolasgamboa.a@gmail.com",
 		"name": "Nicolás Gamboa"
 	},
+	"publisher": "Nicolas Gamboa",
 	"description": "",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
