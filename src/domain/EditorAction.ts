@@ -4,5 +4,7 @@ export default interface EditorAction {
     
     getCommand(): string;
 
+    runnable(): boolean;
+
     run(): Promise<void>;
 }

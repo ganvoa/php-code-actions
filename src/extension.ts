@@ -17,16 +17,19 @@ class CodeActionProvider implements vscode.CodeActionProvider {
 		this.actions = actions;
 	}
 
-	public provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.Command[] {
-		const codeActions: vscode.Command[] = [];
+	public provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.CodeAction[] {
+		const codeActions: vscode.CodeAction[] = [];
 
 		for (let index = 0; index < this.actions.length; index++) {
 			const action = this.actions[index];
-
-			codeActions.push({
-				command: action.getCommand(),
-				title: action.getTitle()
-			});
+			if (action.runnable()) {
+				const vsCodeAction = new vscode.CodeAction(action.getTitle(), vscode.CodeActionKind.Refactor);
+				vsCodeAction.command = {
+					command: action.getCommand(),
+					title: action.getTitle()
+				};
+				codeActions.push(vsCodeAction);
+			}
 		}
 
 		return codeActions;

@@ -18,6 +18,18 @@ export class AddConstructorCodeAction implements EditorAction {
         this.classInspector = classInspector;
     }
 
+    runnable(): boolean {
+        if (!this.vsCode.hasActiveEditor()) {
+            return false;
+        }
+
+        if (null !== this.vsCode.getText().match(/__construct\(/)) {
+            return false;
+        }
+
+        return true;
+    }
+
     getTitle(): string {
         return this.title;
     }
@@ -28,12 +40,8 @@ export class AddConstructorCodeAction implements EditorAction {
 
     async run(): Promise<void> {
 
-        if (!this.vsCode.hasActiveEditor()) {
-            return;
-        }
-
-        if (null !== this.vsCode.getText().match(/__construct\(/)) {
-            return;
+        if (!this.runnable()) {
+            return Promise.resolve();
         }
 
         const offset = this.classInspector.getOffsetForConstructor();

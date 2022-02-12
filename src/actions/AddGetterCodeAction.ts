@@ -17,6 +17,14 @@ export class AddGetterCodeAction implements EditorAction {
         this.classInspector = classInspector;
     }
 
+    runnable(): boolean {
+        if (!this.vsCode.hasActiveEditor()) {
+            false;
+        }
+
+        return true;
+    }
+
     getTitle(): string {
         return this.title;
     }
@@ -27,7 +35,7 @@ export class AddGetterCodeAction implements EditorAction {
 
     async run(): Promise<void> {
 
-        if (!this.vsCode.hasActiveEditor()) {
+        if (!this.runnable()) {
             return Promise.resolve();
         }
 
