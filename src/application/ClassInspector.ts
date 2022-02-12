@@ -21,7 +21,7 @@ export default class ClassInspector {
         let match: RegExpExecArray | null;
         let lastIndex = 0;
         while (match = regex.exec(this.vscode.getText())) {
-            lastIndex = match.index;
+            lastIndex = match.index + match[0].length;
         }
 
         return new PositionOffset(lastIndex);

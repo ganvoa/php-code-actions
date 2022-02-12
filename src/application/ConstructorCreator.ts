@@ -17,11 +17,11 @@ export default class ConstructorCreator {
         const breakLine = this.vsCode.getEditorPreferences().breakLine;
         const indentation = this.vsCode.getEditorPreferences().indentation;
 
-        const phpDocPre = `${breakLine}${indentation}/**`;
+        const phpDocPre = `${breakLine.repeat(2)}${indentation}/**`;
         const phpDocPost = `${breakLine}${indentation} */`;
         const constructorPre = `${breakLine}${indentation}public function __construct(`;
         const constructorPost = `)${breakLine}${indentation}{`;
-        const constructorEnd = `${breakLine}${indentation}}${breakLine}`;
+        const constructorEnd = `${breakLine}${indentation}}`;
 
         let constructor = "";
 

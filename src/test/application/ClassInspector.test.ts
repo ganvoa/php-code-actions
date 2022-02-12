@@ -104,7 +104,7 @@ suite('ClassInspector Suite', () => {
         const offset: PositionOffset = inspector.getOffsetForConstructor();
 
         verify(vscodeMock.getText()).called();
-        assert.strictEqual(offset.value, 568);
+        assert.strictEqual(offset.value, 591);
     });
 
     test('getter offset should be before last closing curly brace', () => {
