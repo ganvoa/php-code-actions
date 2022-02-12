@@ -7,6 +7,7 @@ A very basic set of PHP Code Actions for vscode.
 This extension adds different Code Actions for PHP.
 
 - Add Constructor.
+- Add Getter.
 
 ## Known Issues
 
@@ -14,5 +15,7 @@ This extension adds different Code Actions for PHP.
 
 ## Release Notes
 
-### 0.0.0
+### 0.1.0
+
+- Initial release
 
