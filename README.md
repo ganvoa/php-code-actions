@@ -1,17 +1,11 @@
 # php-code-actions
 
-A very basic set of PHP Code Actions for vscode.
+A very basic set of PHP Code Actions for Visual Studio Code.
 
-## Features
-
-This extension adds different Code Actions for PHP.
+## Actions
 
 - Add Constructor.
 - Add Getter.
-
-## Known Issues
-
-...
 
 ## Release Notes
 
