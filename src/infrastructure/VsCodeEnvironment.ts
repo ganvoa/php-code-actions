@@ -1,9 +1,24 @@
 import * as vscode from 'vscode';
 import EditorPreferences from '../domain/EditorPreferences';
 import GetterConfiguration from '../domain/GetterConfiguration';
+import PositionOffset from '../domain/PositionOffset';
 import VsCode from '../domain/VsCode';
 
 export class VsCodeEnvironment implements VsCode {
+
+    insertText(offset: PositionOffset, content: string): void {
+        const editor = this.getActiveTextEditor();
+        editor.edit(edit => {
+            edit.insert(
+                editor.document.positionAt(offset.value),
+                content
+            );
+        });
+    }
+
+    hasActiveEditor(): boolean {
+        return !(null === vscode.window.activeTextEditor);
+    }
 
     getEditorPreferences(): EditorPreferences {
         return new EditorPreferences(this.getIndentation(), '\n');
@@ -26,7 +41,6 @@ export class VsCodeEnvironment implements VsCode {
     }
 
     getGetterConfiguration(): GetterConfiguration {
-
         const addPrefix = vscode.workspace.getConfiguration("php-code-actions").get("getter.addPrefix", true) as boolean;
         return new GetterConfiguration(addPrefix);
     }

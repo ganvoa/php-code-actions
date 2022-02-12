@@ -1,6 +1,5 @@
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
-import { addConstructorAction } from '../../../actions/addConstructorAction';
 
 const original = `<?php
 class Example

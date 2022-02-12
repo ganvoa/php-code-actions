@@ -1,22 +1,28 @@
 import * as vscode from 'vscode';
-import { addConstructorAction } from './actions/addConstructorAction';
-import { addGetterAction } from './actions/addGetterAction';
+import { AddConstructorCodeAction } from './actions/AddConstructorCodeAction';
+import { AddGetterCodeAction } from './actions/AddGetterCodeAction';
+import EditorAction from './domain/EditorAction';
+import { VsCodeEnvironment } from './infrastructure/VsCodeEnvironment';
 
 class CodeActionProvider implements vscode.CodeActionProvider {
+
+	actions: EditorAction[];
+
+	constructor(actions: EditorAction[]) {
+		this.actions = actions;
+	}
+
 	public provideCodeActions(document: vscode.TextDocument, range: vscode.Range | vscode.Selection, context: vscode.CodeActionContext, token: vscode.CancellationToken): vscode.Command[] {
 		const codeActions: vscode.Command[] = [];
 
-		if (null === document.getText().match(/__construct\(/)) {
+		for (let index = 0; index < this.actions.length; index++) {
+			const action = this.actions[index];
+
 			codeActions.push({
-				command: "php-code-actions.addConstructor",
-				title: "Add Constructor"
+				command: action.getCommand(),
+				title: action.getTitle()
 			});
 		}
-
-		codeActions.push({
-			command: "php-code-actions.addGetter",
-			title: "Add Getter"
-		});
 
 		return codeActions;
 	}
@@ -24,28 +30,25 @@ class CodeActionProvider implements vscode.CodeActionProvider {
 
 export const activate = (context: vscode.ExtensionContext) => {
 
+	const vsCode: VsCodeEnvironment = new VsCodeEnvironment();
+
+	const actions: EditorAction[] = [];
+	actions.push(new AddConstructorCodeAction(vsCode));
+	actions.push(new AddGetterCodeAction(vsCode));
+
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(
 			{ pattern: "**/*.{php}", scheme: "file" },
-			new CodeActionProvider()
+			new CodeActionProvider(actions)
 		)
 	);
 
-	context.subscriptions.push(
-		vscode.commands.registerCommand("php-code-actions.addConstructor", () => {
-			if (vscode.window.activeTextEditor) {
-				addConstructorAction(vscode.window.activeTextEditor);
-			}
-		})
-	);
-
-	context.subscriptions.push(
-		vscode.commands.registerCommand("php-code-actions.addGetter", () => {
-			if (vscode.window.activeTextEditor) {
-				addGetterAction(vscode.window.activeTextEditor);
-			}
-		})
-	);
+	for (let index = 0; index < actions.length; index++) {
+		const action = actions[index];
+		context.subscriptions.push(
+			vscode.commands.registerCommand(action.getCommand(), action.run)
+		);
+	}
 };
 
 export function deactivate() { }

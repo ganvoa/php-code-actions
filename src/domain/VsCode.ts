@@ -1,9 +1,14 @@
 import EditorPreferences from "./EditorPreferences";
 import GetterConfiguration from "./GetterConfiguration";
+import PositionOffset from "./PositionOffset";
 
 export default interface VsCode {
 
     getText(): string;
+
+    hasActiveEditor(): boolean;
+
+    insertText(offset: PositionOffset, content: string): void;
 
     getEditorPreferences(): EditorPreferences;
 
