@@ -21,7 +21,7 @@ export default class ConstructorCreator {
         const phpDocPost = `${breakLine}${indentation} */`;
         const constructorPre = `${breakLine}${indentation}public function __construct(`;
         const constructorPost = `)${breakLine}${indentation}{`;
-        const constructorEnd = `${breakLine}${indentation}}`;
+        const constructorEnd = `${breakLine}${indentation}}${breakLine}`;
 
         let constructor = "";
 
