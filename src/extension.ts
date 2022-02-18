@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { AddConstructorCodeAction } from './actions/AddConstructorCodeAction';
 import { AddGetterCodeAction } from './actions/AddGetterCodeAction';
+import { AddPropertyCodeAction } from './actions/AddPropertyCodeAction';
 import ClassInspector from './application/ClassInspector';
 import ConstructorCreator from './application/ConstructorCreator';
 import GetterCreator from './application/GetterCreator';
@@ -51,6 +52,7 @@ export const activate = (context: vscode.ExtensionContext) => {
 
 	actions.push(new AddConstructorCodeAction(vsCode, classInspector, constructorCreator));
 	actions.push(new AddGetterCodeAction(vsCode, classInspector, getterCreator));
+	actions.push(new AddPropertyCodeAction(vsCode, classInspector, propertyCreator));
 
 	context.subscriptions.push(
 		vscode.languages.registerCodeActionsProvider(

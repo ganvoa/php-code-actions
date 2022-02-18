@@ -7,12 +7,21 @@ import PropertyType from "../domain/PropertyType";
 
 export default class ClassInspector {
 
-    vscode: VsCode;
-    regexpHelper: RegexpHelper;
+    constructor(
+        private vscode: VsCode,
+        private regexpHelper: RegexpHelper) { }
 
-    constructor(vscode: VsCode, regexpHelper: RegexpHelper) {
-        this.vscode = vscode;
-        this.regexpHelper = regexpHelper;
+    getOffsetForProperty(): PositionOffset {
+        const regex = /([\w\W]*?)({)([\w\W]*)(})/gm;
+
+        let match: RegExpExecArray | null = regex.exec(this.vscode.getText());
+        let offset = new PositionOffset(0);
+        if (null !== match) {
+            const group = this.regexpHelper.getGroupOffset(match, 3);
+            offset = group.start;
+        }
+
+        return offset;
     }
 
     getOffsetForConstructor(): PositionOffset {
@@ -56,7 +65,7 @@ export default class ClassInspector {
 
     getProperties(): Map<string, Property> {
         const regex = /(@var\s+([\w\\|<>\s,]+)[\t\r\n\s]{1}[\w\W]*?\*\/)?[\t\r\n\s]+(private|protected|public)\s+\$(.+)\;/gm;
-        
+
         const properties = new Map<string, Property>();
 
         let match = null;

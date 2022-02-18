@@ -10,7 +10,7 @@
 	},
 	"publisher": "ganvoa",
 	"description": "",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
@@ -26,6 +26,10 @@
 			{
 				"command": "php-code-actions.addConstructor",
 				"title": "Add Constructor"
+			},
+			{
+				"command": "php-code-actions.addProperty",
+				"title": "Add Property"
 			},
 			{
 				"command": "php-code-actions.addGetter",

@@ -25,14 +25,17 @@ export default class ConstructorCreator {
 
         let constructor = "";
 
-        constructor = constructor.concat(phpDocPre);
-        selectedProperties.forEach((prop: Property) => {
-            constructor = constructor
-                .concat(`${breakLine}${indentation} * `)
-                .concat(this.propertyCreator.getForDoc(prop));
-        });
-
-        constructor = constructor.concat(phpDocPost);
+        if (selectedProperties.length > 0) {
+            constructor = constructor.concat(phpDocPre);
+            selectedProperties.forEach((prop: Property) => {
+                constructor = constructor
+                    .concat(`${breakLine}${indentation} * `)
+                    .concat(this.propertyCreator.getForDoc(prop));
+            });
+            constructor = constructor.concat(phpDocPost);
+        } else {
+            constructor = constructor.concat(`${breakLine.repeat(2)}`);
+        }
 
         constructor = constructor.concat(constructorPre);
         selectedProperties.forEach((prop: Property, idx: number) => {

@@ -10,7 +10,7 @@ export class AddConstructorCodeAction implements EditorAction {
     classInspector: ClassInspector;
     constructorCreator: ConstructorCreator;
     title: string = "Add Constructor";
-    command: string = "php-code-actions.AddConstructor";
+    command: string = "php-code-actions.addConstructor";
 
     constructor(vsCode: VsCode, classInspector: ClassInspector, constructorCreator: ConstructorCreator) {
         this.vsCode = vsCode;
@@ -47,11 +47,10 @@ export class AddConstructorCodeAction implements EditorAction {
         const offset = this.classInspector.getOffsetForConstructor();
         const properties = this.classInspector.getNonPublicProperties();
 
-        const selectedProperties: string[] = await this.vsCode.quickPickMultiple(
-            'Add Constructor for', Array.from(properties.values()).map(prop => prop.name));
-
-        if (selectedProperties.length <= 0) {
-            return Promise.resolve();
+        let selectedProperties: string[] = [];
+        if (properties.size > 0) {
+            selectedProperties = await this.vsCode.quickPickMultiple(
+                'Add Constructor for', Array.from(properties.values()).map(prop => prop.name));
         }
 
         const selectedAsArrayOfProperties: Property[] = [];
