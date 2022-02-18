@@ -3,6 +3,7 @@ import GetterConfiguration from "./GetterConfiguration";
 import PositionOffset from "./PositionOffset";
 
 export default interface VsCode {
+    insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean>;
 
     getText(): string;
 

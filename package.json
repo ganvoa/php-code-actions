@@ -28,6 +28,10 @@
 				"title": "Add Constructor"
 			},
 			{
+				"command": "php-code-actions.addProperty",
+				"title": "Add Property"
+			},
+			{
 				"command": "php-code-actions.addGetter",
 				"title": "Add Getter"
 			}

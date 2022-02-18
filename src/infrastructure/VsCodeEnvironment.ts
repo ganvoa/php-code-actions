@@ -6,6 +6,14 @@ import VsCode from '../domain/VsCode';
 
 export class VsCodeEnvironment implements VsCode {
 
+    insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean> {
+        const editor = this.getActiveTextEditor();
+
+        const position = editor.document.positionAt(offset.value);
+
+        return editor.insertSnippet(new vscode.SnippetString(snippet), position);
+    }
+
     quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]> {
         return vscode.window.showQuickPick(options, {
             canPickMany: true,
