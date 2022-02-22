@@ -28,7 +28,7 @@ export default class GetterCreator {
 
         getter = getter.concat(phpDocPre)
             .concat(`${breakLine}${indentation} * `)
-            .concat(this.propertyCreator.getForDoc(property))
+            .concat(this.propertyCreator.getForReturnDoc(property))
             .concat(phpDocPost)
             .concat(getterPre)
             .concat(this.getterMethod(property))

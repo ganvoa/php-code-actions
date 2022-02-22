@@ -29,4 +29,8 @@ export default class PropertyCreator {
         return "@param ".concat(property.type).concat(" $").concat(property.name);
     }
 
+    getForReturnDoc(property: Property): string {
+        return "@return ".concat(property.type);
+    }
+
 }
