@@ -4,6 +4,10 @@ All notable changes to the "php-code-actions" extension will be documented in th
 
 ### [0.2.1]
 
+- fix: property order
+- fix: array types in property
+### [0.2.1]
+
 - fix: getter doc
 ### [0.2.0]
 
