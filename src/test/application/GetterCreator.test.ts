@@ -16,7 +16,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param mixed $property
+             * @return mixed
              */
             public function getProperty() { 
                 return$this->property;
@@ -26,7 +26,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime $propertyDate
+             * @return DateTime
              */
             public function getPropertyDate() { 
                 return$this->propertyDate;
@@ -41,7 +41,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime|null $propertyDateNullable
+             * @return DateTime|null
              */
             public function getPropertyDateNullable() { 
                 return$this->propertyDateNullable;
@@ -56,7 +56,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime|string|null $propertyDateStringNullable
+             * @return DateTime|string|null
              */
             public function getPropertyDateStringNullable() { 
                 return$this->propertyDateStringNullable;
@@ -74,7 +74,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param mixed $property
+             * @return mixed
              */
             public function property() { 
                 return$this->property;
@@ -84,7 +84,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime $propertyDate
+             * @return DateTime
              */
             public function propertyDate() { 
                 return$this->propertyDate;
@@ -99,7 +99,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime|null $propertyDateNullable
+             * @return DateTime|null
              */
             public function propertyDateNullable() { 
                 return$this->propertyDateNullable;
@@ -114,7 +114,7 @@ suite('GetterCreator Suite', () => {
         {
             expectedGetter: `
             /**
-             * @param DateTime|string|null $propertyDateStringNullable
+             * @return DateTime|string|null
              */
             public function propertyDateStringNullable() { 
                 return$this->propertyDateStringNullable;

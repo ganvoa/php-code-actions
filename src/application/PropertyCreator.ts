@@ -3,7 +3,7 @@ import Property from "../domain/Property";
 export default class PropertyCreator {
 
     getSnippet(): string {
-        const snippet = `\n\n\t/** @var \${1:mixed} */\n\t\${2|private,protected,public|} $\${3:propertyName};\n`;
+        const snippet = `\t/** @var \${1:mixed} */\n\t\${2|private,protected,public|} $\${3:propertyName};`;
         return snippet;
     }
 

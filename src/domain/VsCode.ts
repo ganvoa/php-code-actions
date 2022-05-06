@@ -18,7 +18,7 @@ export default interface VsCode {
     showErrorMessage(message: string): void;
 
     showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: any, token?: any): Thenable<string[] | undefined>;
-   
+
     quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]>;
 
 }

@@ -18,11 +18,11 @@ export default class GetterCreator {
         const breakLine = this.vsCode.getEditorPreferences().breakLine;
         const indentation = this.vsCode.getEditorPreferences().indentation;
 
-        const phpDocPre = `${breakLine}${indentation}/**`;
+        const phpDocPre = `${indentation}/**`;
         const phpDocPost = `${breakLine}${indentation} */`;
         const getterPre = `${breakLine}${indentation}public function `;
         const getterPost = `()${breakLine}${indentation}{`;
-        const getterEnd = `${indentation}${breakLine}${indentation}}${breakLine}`;
+        const getterEnd = `${indentation}${breakLine}${indentation}}`;
 
         let getter = "";
 

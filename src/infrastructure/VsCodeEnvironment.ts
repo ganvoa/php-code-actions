@@ -11,7 +11,14 @@ export class VsCodeEnvironment implements VsCode {
 
         const position = editor.document.positionAt(offset.value);
 
-        return editor.insertSnippet(new vscode.SnippetString(snippet), position);
+        return editor.edit(edit => {
+            edit.insert(
+                position,
+                "\n"
+            );
+        }).then(ret => {
+            return editor.insertSnippet(new vscode.SnippetString("\n" + snippet), position.with(position.line + 1, 0));
+        });
     }
 
     quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]> {
@@ -31,11 +38,10 @@ export class VsCodeEnvironment implements VsCode {
         const editor = this.getActiveTextEditor();
 
         const position = editor.document.positionAt(offset.value);
-
         return editor.edit(edit => {
             edit.insert(
                 position,
-                content
+                `\n${content}\n\n`
             );
             vscode.window.showTextDocument(this.getCurrentDocument());
         });
