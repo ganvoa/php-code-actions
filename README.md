@@ -1,6 +1,6 @@
 # php-code-actions
 
-A very basic set of PHP Code Actions for Visual Studio Code.
+A very basic set of PHP Code Actions for VSCode.
 
 ## Actions
 

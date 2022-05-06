@@ -9,7 +9,8 @@
 		"url": "https://github.com/ganvoa/php-code-actions"
 	},
 	"publisher": "ganvoa",
-	"description": "",
+	"description": "A very basic set of PHP Code Actions for VSCode",
+	"icon": "icon.png",
 	"version": "0.2.2",
 	"engines": {
 		"vscode": "^1.63.0"
