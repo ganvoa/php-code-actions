@@ -1,7 +1,7 @@
-import ClassInspector from "../application/ClassInspector";
-import PropertyCreator from "../application/PropertyCreator";
-import EditorAction from "../domain/EditorAction";
-import VsCode from "../domain/VsCode";
+import ClassInspector from "../../application/ClassInspector";
+import PropertyCreator from "../../application/PropertyCreator";
+import EditorAction from "../../domain/EditorAction";
+import VsCode from "../../domain/VsCode";
 
 export class AddPropertyCodeAction implements EditorAction {
 

@@ -35,6 +35,10 @@
 			{
 				"command": "php-code-actions.addGetter",
 				"title": "Add Getter"
+			},
+			{
+				"command": "php-code-actions.replaceConstructor",
+				"title": "Replace Constructor"
 			}
 		],
 		"configuration": [

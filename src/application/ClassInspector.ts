@@ -4,6 +4,7 @@ import PositionOffset from "../domain/PositionOffset";
 import RegexpHelper from "./RegexpHelper";
 import { PropertyVisibility } from "../domain/PropertyVisibility";
 import PropertyType from "../domain/PropertyType";
+import GroupOffset from "../domain/GroupOffset";
 
 export default class ClassInspector {
 
@@ -48,6 +49,50 @@ export default class ClassInspector {
         }
 
         return offset;
+    }
+
+    getConstructorGroupOffset(): GroupOffset | null {
+        const content = this.vscode.getText();
+
+        const regex = /((\/\*\*((?!\/\*\*)[\s\S])*\*\/([\s]+))?((public)?(private)?\s*function\s*__construct\s*\([\w\W]+?\))\s*){/gm;
+        let match: RegExpExecArray | null = regex.exec(content);
+        let startPosition = undefined;
+        if (null !== match) {
+            const group = this.regexpHelper.getGroupOffset(match, 1);
+            startPosition = group.start;
+        }
+
+        if (startPosition === undefined) {
+            return null;
+        }
+
+
+        let bracketsFound = 0;
+        let atLeastOneBracketFound = false;
+        let endPosition = undefined;
+        for (let i = startPosition.value; i < content.length; i++) {
+            const charAt = content.charAt(i);
+
+            if (charAt === "{") {
+                bracketsFound++;
+                atLeastOneBracketFound = true;
+            }
+
+            if (charAt === "}") {
+                bracketsFound--;
+            }
+
+            if (bracketsFound === 0 && atLeastOneBracketFound) {
+                endPosition = new PositionOffset(i + 1);
+                break;
+            }
+        }
+
+        if (endPosition === undefined) {
+            return null;
+        }
+
+        return new GroupOffset(startPosition, endPosition);
     }
 
     getNonPublicProperties(): Map<string, Property> {
