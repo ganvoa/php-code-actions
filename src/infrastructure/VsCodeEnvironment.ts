@@ -1,10 +1,25 @@
 import * as vscode from 'vscode';
 import EditorPreferences from '../domain/EditorPreferences';
 import GetterConfiguration from '../domain/GetterConfiguration';
+import GroupOffset from '../domain/GroupOffset';
 import PositionOffset from '../domain/PositionOffset';
 import VsCode from '../domain/VsCode';
 
 export class VsCodeEnvironment implements VsCode {
+
+    replaceText(position: GroupOffset, content: string): Thenable<boolean> {
+        const editor = this.getActiveTextEditor();
+        const initPosition = editor.document.positionAt(position.start.value);
+        const endPosition = editor.document.positionAt(position.end.value);
+        const range = new vscode.Range(initPosition.with(initPosition.line, 0), endPosition);
+        return editor.edit(edit => {
+            edit.replace(
+                range,
+                `${content}`
+            );
+            vscode.window.showTextDocument(this.getCurrentDocument());
+        });
+    }
 
     insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean> {
         const editor = this.getActiveTextEditor();

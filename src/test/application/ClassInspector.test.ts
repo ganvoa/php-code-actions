@@ -84,6 +84,62 @@ class Example
 
 }`;
 
+const exampleTextConstructorWithPhpDoc: string = `<?php
+
+class ServicioLavadoCreateCommanda
+{
+    /** @var mixed */
+    private $propertyName;
+
+    /** @var mixed */
+    private $propertyName2;
+    
+    /**
+     * @param mixed $propertyName
+     * @param mixed $propertyName2
+     */
+    private function __construct($propertyName, $propertyName2)
+    {
+        $this->propertyName = $propertyName;
+        $this->propertyName2 = $propertyName2;
+        if (false) {
+            return;
+        }
+        
+        if (true) {
+            if (false) {
+                return;
+            }
+        }
+    }
+}`;
+
+const exampleTextConstructorWithoutPhpDoc: string = `<?php
+
+class ServicioLavadoCreateCommanda
+{
+    /** @var mixed */
+    private $propertyName;
+
+    /** @var mixed */
+    private $propertyName2;
+    
+    private function __construct($propertyName, $propertyName2)
+    {
+        $this->propertyName = $propertyName;
+        $this->propertyName2 = $propertyName2;
+        if (false) {
+            return;
+        }
+        
+        if (true) {
+            if (false) {
+                return;
+            }
+        }
+    }
+}`;
+
 suite('ClassInspector Suite', () => {
 
     test('properties should have private, protected or public modifier', () => {
@@ -167,5 +223,35 @@ suite('ClassInspector Suite', () => {
 
         verify(vscodeMock.getText()).called();
         assert.strictEqual(offset.value, 1121);
+    });
+
+    test('construct group offset should consider phpdoc', () => {
+        const vscodeMock: VsCode = mock<VsCode>();
+        when(vscodeMock.getText()).thenReturn(exampleTextConstructorWithPhpDoc);
+        let vscode: VsCode = instance(vscodeMock);
+
+        const helper = new RegexpHelper();
+        const inspector = new ClassInspector(vscode, helper);
+        const groupOffset = inspector.getConstructorGroupOffset();
+
+        verify(vscodeMock.getText()).called();
+        assert(groupOffset !== null);
+        assert.strictEqual(groupOffset.start.value, 153);
+        assert.strictEqual(groupOffset.end.value, 554);
+    });
+
+    test('construct group offset should return consider constructor without phpdoc', () => {
+        const vscodeMock: VsCode = mock<VsCode>();
+        when(vscodeMock.getText()).thenReturn(exampleTextConstructorWithoutPhpDoc);
+        let vscode: VsCode = instance(vscodeMock);
+
+        const helper = new RegexpHelper();
+        const inspector = new ClassInspector(vscode, helper);
+        const groupOffset = inspector.getConstructorGroupOffset();
+
+        verify(vscodeMock.getText()).called();
+        assert(groupOffset !== null);
+        assert.strictEqual(groupOffset.start.value, 153);
+        assert.strictEqual(groupOffset.end.value, 469);
     });
 });

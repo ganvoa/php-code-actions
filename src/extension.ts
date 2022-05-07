@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { AddConstructorCodeAction } from './actions/AddConstructorCodeAction';
-import { AddGetterCodeAction } from './actions/AddGetterCodeAction';
-import { AddPropertyCodeAction } from './actions/AddPropertyCodeAction';
+import { AddConstructorCodeAction } from './infrastructure/actions/AddConstructorCodeAction';
+import { AddGetterCodeAction } from './infrastructure/actions/AddGetterCodeAction';
+import { AddPropertyCodeAction } from './infrastructure/actions/AddPropertyCodeAction';
 import ClassInspector from './application/ClassInspector';
 import ConstructorCreator from './application/ConstructorCreator';
 import GetterCreator from './application/GetterCreator';
@@ -9,6 +9,7 @@ import PropertyCreator from './application/PropertyCreator';
 import RegexpHelper from './application/RegexpHelper';
 import EditorAction from './domain/EditorAction';
 import { VsCodeEnvironment } from './infrastructure/VsCodeEnvironment';
+import { ReplaceConstructorCodeAction } from './infrastructure/actions/ReplaceConstructorCodeAction';
 
 class CodeActionProvider implements vscode.CodeActionProvider {
 
@@ -50,6 +51,7 @@ export const activate = (context: vscode.ExtensionContext) => {
 	const classInspector = new ClassInspector(vsCode, regexpHelper);
 	const getterCreator = new GetterCreator(propertyCreator, vsCode);
 
+	actions.push(new ReplaceConstructorCodeAction(vsCode, classInspector, constructorCreator));
 	actions.push(new AddConstructorCodeAction(vsCode, classInspector, constructorCreator));
 	actions.push(new AddGetterCodeAction(vsCode, classInspector, getterCreator));
 	actions.push(new AddPropertyCodeAction(vsCode, classInspector, propertyCreator));

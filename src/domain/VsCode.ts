@@ -1,15 +1,19 @@
 import EditorPreferences from "./EditorPreferences";
 import GetterConfiguration from "./GetterConfiguration";
+import GroupOffset from "./GroupOffset";
 import PositionOffset from "./PositionOffset";
 
 export default interface VsCode {
+
+    hasActiveEditor(): boolean;
+
     insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean>;
 
     getText(): string;
 
-    hasActiveEditor(): boolean;
-
     insertText(offset: PositionOffset, content: string): Thenable<boolean>;
+
+    replaceText(position: GroupOffset, content: string): Thenable<boolean>;
 
     getEditorPreferences(): EditorPreferences;
 
