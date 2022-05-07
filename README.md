@@ -7,3 +7,5 @@ A very basic set of PHP Code Actions for VSCode.
 - Add Constructor.
 - Add Getter.
 - Add Property.
+
+![Usage](./usage.gif)
