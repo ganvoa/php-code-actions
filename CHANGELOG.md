@@ -2,6 +2,9 @@
 
 All notable changes to the "php-code-actions" extension will be documented in this file.
 
+### [0.3.0]
+
+- feat: add replace constructor action
 ### [0.2.3]
 
 - docs: update readme
