@@ -2,7 +2,10 @@
 
 All notable changes to the "php-code-actions" extension will be documented in this file.
 
-### [0.2.1]
+### [0.2.3]
+
+- docs: update readme
+### [0.2.2]
 
 - fix: property order
 - fix: array types in property
