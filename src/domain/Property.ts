@@ -35,7 +35,7 @@ export default class Property {
   }
 
   isArray(): boolean {
-    return ['['].includes(this.type) || ['<'].includes(this.type);
+    return this.type.search(/\[/) !== -1 || this.type.search(/\</) !== -1;
   }
 
   isPrimitiveType(): boolean {

@@ -14,7 +14,7 @@ class Example
     private $dateTimeVar1;
     
     /** 
-     * @var DateTime */
+     * @var DateTime[] */
     private $dateTimeVar2;
     
     /** 
@@ -182,7 +182,8 @@ suite('ClassInspector Suite', () => {
 
     verify(vscodeMock.getText()).called();
     assert.strictEqual(properties.get('dateTimeVar1')?.type, 'DateTime');
-    assert.strictEqual(properties.get('dateTimeVar2')?.type, 'DateTime');
+    assert.strictEqual(properties.get('dateTimeVar2')?.type, 'DateTime[]');
+    assert.strictEqual(properties.get('dateTimeVar2')?.isArray(), true);
     assert.strictEqual(properties.get('dateTimeVar3')?.type, 'DateTime');
     assert.strictEqual(properties.get('dateTimeVar4')?.type, 'DateTime');
     assert.strictEqual(properties.get('property1')?.type, 'string');
@@ -206,7 +207,7 @@ suite('ClassInspector Suite', () => {
     const offset: PositionOffset = inspector.getOffsetForConstructor();
 
     verify(vscodeMock.getText()).called();
-    assert.strictEqual(offset.value, 1119);
+    assert.strictEqual(offset.value, 1121);
   });
 
   test('getter offset should be before last closing curly brace', () => {
@@ -219,7 +220,7 @@ suite('ClassInspector Suite', () => {
     const offset: PositionOffset = inspector.getOffsetForGetter();
 
     verify(vscodeMock.getText()).called();
-    assert.strictEqual(offset.value, 1121);
+    assert.strictEqual(offset.value, 1123);
   });
 
   test('construct group offset should consider phpdoc', () => {

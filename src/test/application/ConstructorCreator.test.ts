@@ -13,13 +13,15 @@ const constructorExpected = `
 /** 
  * @param mixed $property 
  * @param DateTime $propertyDate 
+ * @param DateTime[] $propertyDateArray 
  * @param DateTime|null $propertyDateNullable 
  * @param DateTime|string|null $propertyDateStringNullable 
  * @param string $stringProperty 
  * /
-public function __construct($property, DateTime $propertyDate, DateTime $propertyDateNullable, $propertyDateStringNullable, $stringProperty) {
+public function __construct($property, DateTime $propertyDate, $propertyDateArray, DateTime $propertyDateNullable = null, $propertyDateStringNullable = null, $stringProperty) {
     $this->property = $property;
     $this->propertyDate = $propertyDate;
+    $this->propertyDateArray = $propertyDateArray;
     $this->propertyDateNullable = $propertyDateNullable;
     $this->propertyDateStringNullable = $propertyDateStringNullable;
     $this->stringProperty = $stringProperty;
@@ -32,6 +34,7 @@ suite('ConstructorCreator Suite', () => {
 
     properties.push(new Property('property', 'mixed', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('propertyDate', 'DateTime', new PositionOffset(0), PropertyVisibility.private));
+    properties.push(new Property('propertyDateArray', 'DateTime[]', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('propertyDateNullable', 'DateTime|null', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('propertyDateStringNullable', 'DateTime|string|null', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('stringProperty', 'string', new PositionOffset(0), PropertyVisibility.private));

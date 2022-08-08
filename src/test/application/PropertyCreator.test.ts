@@ -1,34 +1,26 @@
 import * as assert from 'assert';
 import { suite, test } from 'mocha';
-import { instance, mock, verify, when } from 'ts-mockito';
-import ClassInspector from '../../application/ClassInspector';
-import RegexpHelper from '../../application/RegexpHelper';
+import PropertyCreator from '../../application/PropertyCreator';
 import PositionOffset from '../../domain/PositionOffset';
-import VsCode from '../../domain/VsCode';
-
-const exampleText: string = `<?php
-class Example
-{
-    /** 
-     * @var DateTime */
-    private $var1;
-    
-    /** 
-     * @var string */
-    private $var2;
-}`;
+import Property from '../../domain/Property';
+import { PropertyVisibility } from '../../domain/PropertyVisibility';
 
 suite('PropertyCreator Suite', () => {
-  test('constructor offset should be after last property', () => {
-    const vscodeMock: VsCode = mock<VsCode>();
-    when(vscodeMock.getText()).thenReturn(exampleText);
-    let vscode: VsCode = instance(vscodeMock);
+  test('getForArgument should support different types', () => {
+    const propertyCreator = new PropertyCreator();
 
-    const helper = new RegexpHelper();
-    const inspector = new ClassInspector(vscode, helper);
-    const offset: PositionOffset = inspector.getOffsetForProperty();
+    const mixedProp = new Property('property', 'mixed', new PositionOffset(0), PropertyVisibility.private);
+    const objProp = new Property('propertyDate', 'DateTime', new PositionOffset(0), PropertyVisibility.private);
+    const arrObjProp = new Property('propertyDateArray', 'DateTime[]', new PositionOffset(0), PropertyVisibility.private);
+    const nullableObjProp = new Property('propertyDateNullable', 'DateTime|null', new PositionOffset(0), PropertyVisibility.private);
+    const objPrimNullableProp = new Property('propertyDateStringNullable', 'DateTime|string|null', new PositionOffset(0), PropertyVisibility.private);
+    const stringProp = new Property('stringProperty', 'string', new PositionOffset(0), PropertyVisibility.private);
 
-    verify(vscodeMock.getText()).called();
-    assert.strictEqual(offset.value, 128);
+    assert.strictEqual(propertyCreator.getForArgument(mixedProp), `$${mixedProp.name}`);
+    assert.strictEqual(propertyCreator.getForArgument(objProp), `${objProp.type} $${objProp.name}`);
+    assert.strictEqual(propertyCreator.getForArgument(arrObjProp), `$${arrObjProp.name}`);
+    assert.strictEqual(propertyCreator.getForArgument(nullableObjProp), `${objProp.type} $${nullableObjProp.name} = null`);
+    assert.strictEqual(propertyCreator.getForArgument(objPrimNullableProp), `$${objPrimNullableProp.name} = null`);
+    assert.strictEqual(propertyCreator.getForArgument(stringProp), `$${stringProp.name}`);
   });
 });

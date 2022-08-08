@@ -7,11 +7,19 @@ export default class PropertyCreator {
   }
 
   getForArgument(property: Property): string {
+    let prop = '';
+
     if (property.numberOfTypes() === 1 && !property.isArray() && !property.isMixed() && !property.isPrimitiveType()) {
-      return property.typesAsString().concat(' $').concat(property.name);
+      prop = property.typesAsString().concat(' $').concat(property.name);
+    } else {
+      prop = '$'.concat(property.name);
     }
 
-    return '$'.concat(property.name);
+    if (property.isNullable()) {
+      prop = prop.concat(' = null');
+    }
+
+    return prop;
   }
 
   getForConstructor(property: Property): string {
