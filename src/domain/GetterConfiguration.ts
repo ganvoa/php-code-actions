@@ -1,8 +1,7 @@
 export default class GetterConfiguration {
+  readonly addPrefix: boolean;
 
-    readonly addPrefix: boolean;
-
-    constructor(addPrefix: boolean) {
-        this.addPrefix = addPrefix;
-    }
+  constructor(addPrefix: boolean) {
+    this.addPrefix = addPrefix;
+  }
 }

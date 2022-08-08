@@ -30,19 +30,17 @@ class Example
 }`;
 
 suite('RegexpHelper Suite', () => {
+  test('should return group offset', () => {
+    const helper = new RegexpHelper();
 
-    test('should return group offset', () => {
+    const regex = /([\w\W]*?)({)([\w\W]*)(})/gm;
+    const match: RegExpExecArray = regex.exec(example) as RegExpExecArray;
+    let group = helper.getGroupOffset(match, 2);
+    assert.strictEqual(group.start.value, 21);
+    assert.strictEqual(group.end.value, 22);
 
-        const helper = new RegexpHelper();
-
-        const regex = /([\w\W]*?)({)([\w\W]*)(})/gm;
-        const match: RegExpExecArray = regex.exec(example) as RegExpExecArray;
-        let group = helper.getGroupOffset(match, 2);
-        assert.strictEqual(group.start.value, 21);
-        assert.strictEqual(group.end.value, 22);
-
-        group = helper.getGroupOffset(match, 4);
-        assert.strictEqual(group.start.value, 342);
-        assert.strictEqual(group.end.value, 343);
-    });
+    group = helper.getGroupOffset(match, 4);
+    assert.strictEqual(group.start.value, 342);
+    assert.strictEqual(group.end.value, 343);
+  });
 });

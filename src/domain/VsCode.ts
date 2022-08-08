@@ -1,28 +1,26 @@
-import EditorPreferences from "./EditorPreferences";
-import GetterConfiguration from "./GetterConfiguration";
-import GroupOffset from "./GroupOffset";
-import PositionOffset from "./PositionOffset";
+import EditorPreferences from './EditorPreferences';
+import GetterConfiguration from './GetterConfiguration';
+import GroupOffset from './GroupOffset';
+import PositionOffset from './PositionOffset';
 
 export default interface VsCode {
+  hasActiveEditor(): boolean;
 
-    hasActiveEditor(): boolean;
+  insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean>;
 
-    insertSnippet(offset: PositionOffset, snippet: string): Thenable<boolean>;
+  getText(): string;
 
-    getText(): string;
+  insertText(offset: PositionOffset, content: string): Thenable<boolean>;
 
-    insertText(offset: PositionOffset, content: string): Thenable<boolean>;
+  replaceText(position: GroupOffset, content: string): Thenable<boolean>;
 
-    replaceText(position: GroupOffset, content: string): Thenable<boolean>;
+  getEditorPreferences(): EditorPreferences;
 
-    getEditorPreferences(): EditorPreferences;
+  getGetterConfiguration(): GetterConfiguration;
 
-    getGetterConfiguration(): GetterConfiguration;
+  showErrorMessage(message: string): void;
 
-    showErrorMessage(message: string): void;
+  showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: any, token?: any): Thenable<string[] | undefined>;
 
-    showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: any, token?: any): Thenable<string[] | undefined>;
-
-    quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]>;
-
+  quickPickMultiple(title: string, options: readonly string[]): Thenable<string[]>;
 }

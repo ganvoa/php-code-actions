@@ -1,8 +1,7 @@
 export default class PositionOffset {
+  readonly value: number;
 
-    readonly value: number;
-
-    constructor(value: number) {
-        this.value = value;
-    }
+  constructor(value: number) {
+    this.value = value;
+  }
 }

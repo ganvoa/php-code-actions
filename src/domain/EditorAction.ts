@@ -1,10 +1,9 @@
 export default interface EditorAction {
+  getTitle(): string;
 
-    getTitle(): string;
-    
-    getCommand(): string;
+  getCommand(): string;
 
-    runnable(): boolean;
+  runnable(): boolean;
 
-    run(): Promise<void>;
+  run(): Promise<void>;
 }
