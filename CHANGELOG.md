@@ -2,6 +2,10 @@
 
 All notable changes to the "php-code-actions" extension will be documented in this file.
 
+### [0.4.0]
+
+- feat: add default `null` value on nullable arguments.
+- fix: bracket array notation should not be part of argument
 ### [0.3.0]
 
 - feat: add replace constructor action
