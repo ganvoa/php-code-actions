@@ -26,7 +26,9 @@ export default class ConstructorCreator {
     if (selectedProperties.length > 0) {
       constructor = constructor.concat(phpDocPre);
       selectedProperties.forEach((prop: Property) => {
-        constructor = constructor.concat(`${breakLine}${indentation} * `).concat(this.propertyCreator.getForDoc(prop));
+        if (prop.shouldBeOnDoc()) {
+          constructor = constructor.concat(`${breakLine}${indentation} * `).concat(this.propertyCreator.getForDoc(prop));
+        }
       });
       constructor = constructor.concat(phpDocPost);
     }

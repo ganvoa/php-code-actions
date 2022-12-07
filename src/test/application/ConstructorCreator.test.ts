@@ -12,19 +12,18 @@ import VsCode from '../../domain/VsCode';
 const constructorExpected = `
 /** 
  * @param mixed $property 
- * @param DateTime $propertyDate 
  * @param DateTime[] $propertyDateArray 
  * @param DateTime|null $propertyDateNullable 
  * @param DateTime|string|null $propertyDateStringNullable 
  * @param string $stringProperty 
  * /
 public function __construct($property, DateTime $propertyDate, $propertyDateArray, DateTime $propertyDateNullable = null, $propertyDateStringNullable = null, $stringProperty) {
-    $this->property = $property;
-    $this->propertyDate = $propertyDate;
-    $this->propertyDateArray = $propertyDateArray;
-    $this->propertyDateNullable = $propertyDateNullable;
-    $this->propertyDateStringNullable = $propertyDateStringNullable;
-    $this->stringProperty = $stringProperty;
+  $this->property = $property;
+  $this->propertyDate = $propertyDate;
+  $this->propertyDateArray = $propertyDateArray;
+  $this->propertyDateNullable = $propertyDateNullable;
+  $this->propertyDateStringNullable = $propertyDateStringNullable;
+  $this->stringProperty = $stringProperty;
 }
 `;
 

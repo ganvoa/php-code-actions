@@ -4,10 +4,12 @@ import ConstructorCreator from './application/ConstructorCreator';
 import GetterCreator from './application/GetterCreator';
 import PropertyCreator from './application/PropertyCreator';
 import RegexpHelper from './application/RegexpHelper';
+import SetterCreator from './application/SetterCreator';
 import EditorAction from './domain/EditorAction';
 import { AddConstructorCodeAction } from './infrastructure/actions/AddConstructorCodeAction';
 import { AddGetterCodeAction } from './infrastructure/actions/AddGetterCodeAction';
 import { AddPropertyCodeAction } from './infrastructure/actions/AddPropertyCodeAction';
+import { AddSetterCodeAction } from './infrastructure/actions/AddSetterCodeAction';
 import { ReplaceConstructorCodeAction } from './infrastructure/actions/ReplaceConstructorCodeAction';
 import { VsCodeEnvironment } from './infrastructure/VsCodeEnvironment';
 
@@ -52,11 +54,13 @@ export const activate = (context: vscode.ExtensionContext) => {
   const constructorCreator = new ConstructorCreator(propertyCreator, vsCode);
   const classInspector = new ClassInspector(vsCode, regexpHelper);
   const getterCreator = new GetterCreator(propertyCreator, vsCode);
+  const setterCreator = new SetterCreator(propertyCreator, vsCode);
 
   actions.push(new ReplaceConstructorCodeAction(vsCode, classInspector, constructorCreator));
   actions.push(new AddConstructorCodeAction(vsCode, classInspector, constructorCreator));
   actions.push(new AddGetterCodeAction(vsCode, classInspector, getterCreator));
   actions.push(new AddPropertyCodeAction(vsCode, classInspector, propertyCreator));
+  actions.push(new AddSetterCodeAction(vsCode, classInspector, setterCreator));
 
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider({ pattern: '**/*.{php}', scheme: 'file' }, new CodeActionProvider(actions))

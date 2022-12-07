@@ -34,11 +34,19 @@ export default class Property {
     return ['mixed'].includes(this.type);
   }
 
+  shouldBeOnDoc(): boolean {
+    return this.isNullable() || this.isArray() || this.isMixed() || this.isPrimitiveType() || (this.numberOfTypes() === 1 && this.isPrimitiveType());
+  }
+
   isArray(): boolean {
     return this.type.search(/\[/) !== -1 || this.type.search(/\</) !== -1;
   }
 
   isPrimitiveType(): boolean {
     return ['bool', 'string', 'int', 'float', 'array'].includes(this.type) || this.type.search(/array/) !== -1;
+  }
+
+  setterName(): string {
+    return 'set'.concat(this.name.charAt(0).toUpperCase() + this.name.slice(1));
   }
 }
