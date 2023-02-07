@@ -11,7 +11,7 @@
 	"publisher": "ganvoa",
 	"description": "A very basic set of PHP Code Actions for VSCode",
 	"icon": "icon.png",
-	"version": "0.6.0",
+	"version": "0.5.1",
 	"engines": {
 		"vscode": "^1.63.0"
 	},
