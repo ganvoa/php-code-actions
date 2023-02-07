@@ -2,6 +2,10 @@
 
 All notable changes to the "php-code-actions" extension will be documented in this file.
 
+### [0.5.1]
+
+- fix: fix property creator for primitives
+
 ### [0.5.0]
 
 - feat: add `add setter` action

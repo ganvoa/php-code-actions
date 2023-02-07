@@ -22,6 +22,10 @@ export class ReplaceConstructorCodeAction implements EditorAction {
       return false;
     }
 
+    if (!this.vsCode.isPhp()) {
+      return false;
+    }
+
     if (null === this.vsCode.getText().match(/__construct\(/)) {
       return false;
     }

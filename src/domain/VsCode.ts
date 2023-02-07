@@ -10,6 +10,12 @@ export default interface VsCode {
 
   getText(): string;
 
+  getCurrentLineText(): string;
+
+  isType(type: string): boolean;
+
+  isPhp(): boolean;
+
   insertText(offset: PositionOffset, content: string): Thenable<boolean>;
 
   replaceText(position: GroupOffset, content: string): Thenable<boolean>;

@@ -22,6 +22,10 @@ export class AddSetterCodeAction implements EditorAction {
       false;
     }
 
+    if (!this.vsCode.isPhp()) {
+      return false;
+    }
+
     let properties = this.classInspector.getNonPublicProperties();
     properties = this.filterWithoutSetter(properties);
 

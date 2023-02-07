@@ -43,7 +43,7 @@ export default class Property {
   }
 
   isPrimitiveType(): boolean {
-    return ['bool', 'string', 'int', 'float', 'array'].includes(this.type) || this.type.search(/array/) !== -1;
+    return ['bool', 'string', 'int', 'float', 'array'].includes(this.typesAsString()) || this.typesAsString().search(/array/) !== -1;
   }
 
   setterName(): string {

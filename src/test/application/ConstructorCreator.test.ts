@@ -16,14 +16,18 @@ const constructorExpected = `
  * @param DateTime|null $propertyDateNullable 
  * @param DateTime|string|null $propertyDateStringNullable 
  * @param string $stringProperty 
+ * @param string|null $stringNullable 
+ * @param int|null $intNullable 
  * /
-public function __construct($property, DateTime $propertyDate, $propertyDateArray, DateTime $propertyDateNullable = null, $propertyDateStringNullable = null, $stringProperty) {
+public function __construct($property, DateTime $propertyDate, $propertyDateArray, DateTime $propertyDateNullable = null, $propertyDateStringNullable = null, $stringProperty, $stringNullable = null, $intNullable = null) {
   $this->property = $property;
   $this->propertyDate = $propertyDate;
   $this->propertyDateArray = $propertyDateArray;
   $this->propertyDateNullable = $propertyDateNullable;
   $this->propertyDateStringNullable = $propertyDateStringNullable;
   $this->stringProperty = $stringProperty;
+  $this->stringNullable = $stringNullable;
+  $this->intNullable = $intNullable;
 }
 `;
 
@@ -37,6 +41,8 @@ suite('ConstructorCreator Suite', () => {
     properties.push(new Property('propertyDateNullable', 'DateTime|null', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('propertyDateStringNullable', 'DateTime|string|null', new PositionOffset(0), PropertyVisibility.private));
     properties.push(new Property('stringProperty', 'string', new PositionOffset(0), PropertyVisibility.private));
+    properties.push(new Property('stringNullable', 'string|null', new PositionOffset(0), PropertyVisibility.private));
+    properties.push(new Property('intNullable', 'int|null', new PositionOffset(0), PropertyVisibility.private));
 
     const editorPreferences = new EditorPreferences('    ', '\n');
     const vscodeMock: VsCode = mock<VsCode>();

@@ -110,4 +110,17 @@ export class VsCodeEnvironment implements VsCode {
   showQuickPick(items: readonly string[] | Thenable<readonly string[]>, options?: any, token?: any): Thenable<string[] | undefined> {
     return vscode.window.showQuickPick(items, options, token);
   }
+
+  getCurrentLineText(): string {
+    let curPos = this.getActiveTextEditor().selection.active;
+    return this.getActiveTextEditor().document.lineAt(curPos.line).text;
+  }
+
+  isType(type: string): boolean {
+    return this.getActiveTextEditor().document.languageId === type;
+  }
+
+  isPhp(): boolean {
+    return this.isType("php");
+  }
 }

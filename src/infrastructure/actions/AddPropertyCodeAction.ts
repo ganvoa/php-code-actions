@@ -14,6 +14,10 @@ export class AddPropertyCodeAction implements EditorAction {
       false;
     }
 
+    if (!this.vsCode.isPhp()) {
+      return false;
+    }
+
     return true;
   }
 
